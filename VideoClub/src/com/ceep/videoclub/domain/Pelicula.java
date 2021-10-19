@@ -1,20 +1,18 @@
-
 package com.ceep.videoclub.domain;
 
 public class Pelicula {
-    private String nombre;
-    
-    //Constructor
 
+    private String nombre;
+
+    //Constructor
     public Pelicula() {
     }
 
     public Pelicula(String nombre) {
         this.nombre = nombre;
     }
-    
-    //Getter and Setter
 
+    //Getter and Setter
     public String getNombre() {
         return nombre;
     }
@@ -22,13 +20,11 @@ public class Pelicula {
     public void setNombre(String nombre) {
         this.nombre = nombre;
     }
-    
-    //toString
 
+    //toString
     @Override
     public String toString() {
         return "Pelicula{" + "nombre=" + nombre + '}';
     }
-    
-    
+
 }
