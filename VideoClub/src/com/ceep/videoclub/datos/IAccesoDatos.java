@@ -10,7 +10,7 @@ import java.util.List;
 public interface IAccesoDatos {
 
     //Comprueba si el archivo existe
-    boolean existe(String nombreArchivo) throws AccesoDatosEx;
+    boolean existe(String nombreArchivo);
 
     //Lista todas las peliculas contenidas en el archivo nombreArchivo
     List<Pelicula> listar(String nombreArchivo)throws LecturaDatosEx;

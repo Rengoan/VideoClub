@@ -10,8 +10,9 @@ import java.util.*;
 public class AccesoDatos implements IAccesoDatos {
 
     @Override
-    public boolean existe(String nombreArchivo) throws AccesoDatosEx {
-        return true;
+    public boolean existe(String nombreArchivo) {
+        File archivo = new File(nombreArchivo);
+        return archivo.exists();
     }
 
     @Override
@@ -45,30 +46,56 @@ public class AccesoDatos implements IAccesoDatos {
 
     @Override
     public void escribir(Pelicula pelicula, String nombreArchivo, boolean anexar) throws EscrituraDatosEx {
-        
-        
+
         var archivo = new File(nombreArchivo);
         try {
             //Invocamos a FileWriter para poder anexar la informacion y no sobreescrbirla
-            PrintWriter salida = new PrintWriter(new FileWriter(nombreArchivo, anexar));
-            salida.println(pelicula);//Agregar mi contenido
+            PrintWriter salida = new PrintWriter(new FileWriter(archivo, anexar));
+            salida.println(pelicula.getNombre());//Agregar mi contenido
             salida.close(); //Cerrar archivo
-        } catch (FileNotFoundException e) {
-            e.printStackTrace(System.out);
         } catch (IOException e) {
             e.printStackTrace(System.out);
+            throw new EscrituraDatosEx("Excepcion al escribir en el archivo");
         }
     }
 
     @Override
     public String buscar(String nombreArchivo, String buscar) throws LecturaDatosEx {
-        return null;
-
+        var archivo = new File(nombreArchivo);
+        var resultado = "";
+        try {
+            //entrada es el descriptor de lectura
+            var entrada = new BufferedReader(new FileReader(archivo));
+            //nos devuelve una linea de nuestro archivo 
+            var lectura = entrada.readLine();
+            var i = 0;
+            while (!lectura.equalsIgnoreCase(buscar)) {
+                i++;
+                // Avanzamos en la lectura
+                lectura = entrada.readLine();
+            }
+            resultado = "\nLa pelicula: " + buscar + ", está en la posición " + i;
+            entrada.close();
+        } catch (FileNotFoundException e) {
+            e.printStackTrace(System.out);
+        } catch (IOException e) {
+            e.printStackTrace(System.out);
+        }
+        return resultado;
     }
 
     @Override
     public void crear(String nombreArchivo) throws AccesoDatosEx {
 
+        var archivo = new File(nombreArchivo);
+        try {
+            PrintWriter salida = new PrintWriter(archivo);
+            //Aqui ya esta creado el archivo
+            salida.close(); //Cerrar archivo
+            System.out.println("Se ha creado el archivo");
+        } catch (FileNotFoundException e) {
+            e.printStackTrace(System.out);
+        }
     }
 
     @Override
