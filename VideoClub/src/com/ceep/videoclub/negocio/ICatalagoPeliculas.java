@@ -2,12 +2,16 @@ package com.ceep.videoclub.negocio;
 
 public interface ICatalagoPeliculas {
 
-    void agregarPelicula(String nombre, String nombreArchivo);
+    //Agrega una pelicula al catalogo
+    void agregarPelicula(String nombrePelicula, String nombreCatalogo);
 
-    void listarPeliculas(String nombreArchivo);
+    //Mostrar todas las peliculas del catalogo
+    void listarPeliculas(String nombreCatalogo);
 
-    void buscarPelicula(String nombreArchivo, String buscar);
+    //Busca la pelicula "Buscar" en el catalogo
+    void buscarPelicula(String nombreCatalogo, String buscar);
 
-    void iniciarArchivo(String nombreArchivo);
+    //Inicia nuestro catalogo
+    void iniciarArchivo(String nombreCatalogo);
 
 }

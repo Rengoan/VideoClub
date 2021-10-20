@@ -9,6 +9,7 @@ public class Pelicula {
     }
 
     public Pelicula(String nombre) {
+        this();
         this.nombre = nombre;
     }
 
@@ -24,7 +25,7 @@ public class Pelicula {
     //toString
     @Override
     public String toString() {
-        return "Pelicula{" + "nombre=" + nombre + '}';
+        return "Nombre pelicula: " + nombre;
     }
 
 }

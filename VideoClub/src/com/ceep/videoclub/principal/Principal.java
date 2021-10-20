@@ -1,10 +1,15 @@
-package com.ceep.videoclub.test;
+package com.ceep.videoclub.principal;
 
+import com.ceep.videoclub.domain.Pelicula;
+import com.ceep.videoclub.negocio.*;
 import java.util.Scanner;
 
-public class test {
+public class Principal {
 
     public static void main(String[] args) {
+        var nombreCatalogo = "Videoclub.txt";
+        ICatalagoPeliculas catalogo = new CatalagoPeliculasImp();
+        catalogo.agregarPelicula("Matrix", nombreCatalogo);
 
     }
 
