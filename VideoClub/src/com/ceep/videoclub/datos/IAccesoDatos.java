@@ -1,6 +1,5 @@
 package com.ceep.videoclub.datos;
 
-
 import com.ceep.videoclub.domain.Pelicula;
 import com.ceep.videoclub.excepciones.AccesoDatosEx;
 import com.ceep.videoclub.excepciones.EscrituraDatosEx;
@@ -13,7 +12,7 @@ public interface IAccesoDatos {
     boolean existe(String nombreArchivo);
 
     //Lista todas las peliculas contenidas en el archivo nombreArchivo
-    List<Pelicula> listar(String nombreArchivo)throws LecturaDatosEx;
+    List<Pelicula> listar(String nombreArchivo) throws LecturaDatosEx;
 
     //Escribe una nueva pelicula en el archivo nombreArchivo
     //El parametro anexar puede indicar si queremos agregar la pelicula o sobreescribir
@@ -28,5 +27,5 @@ public interface IAccesoDatos {
     void crear(String nombreArchivo) throws AccesoDatosEx;
 
     //Borra el archivo
-    void borrar(String nombreArchivo) throws AccesoDatosEx;
+    void borrar(String nombreArchivo);
 }

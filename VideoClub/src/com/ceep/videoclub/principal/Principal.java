@@ -1,6 +1,6 @@
 package com.ceep.videoclub.principal;
 
-import com.ceep.videoclub.domain.Pelicula;
+import com.ceep.videoclub.domain.*;
 import com.ceep.videoclub.negocio.*;
 import java.util.Scanner;
 
@@ -10,10 +10,11 @@ public class Principal {
         var nombreCatalogo = "Videoclub.txt";
         ICatalagoPeliculas catalogo = new CatalagoPeliculasImp();
         catalogo.agregarPelicula("Matrix", nombreCatalogo);
+        menu(nombreCatalogo,catalogo);
 
     }
 
-    public static void menu() {
+    public static void menu(String nombreCatalogo, ICatalagoPeliculas catalogo ) {
         int opcion;
         Scanner menu = new Scanner(System.in);
         while (true) {
@@ -29,18 +30,19 @@ public class Principal {
             opcion = menu.nextInt();
             switch (opcion) {
                 case 1:
-                    System.out.println("=========================PELÍCULAS====================================");
-//                visualizar();
-                    System.out.println("==============================================================");
+                    System.out.println("=========================PELÍCULAS===================================");
+                        catalogo.iniciarArchivo(nombreCatalogo);
                     break;
                 case 2:
-//                masBarato();
+                    catalogo.agregarPelicula("Señor de los anillos", nombreCatalogo);
+                    catalogo.agregarPelicula("Spiderman", nombreCatalogo);
+
                     break;
                 case 3:
-//                modiPrecio();
+                    catalogo.listarPeliculas(nombreCatalogo);
                     break;
                 case 4:
-//                precioMedio();
+                    catalogo.buscarPelicula(nombreCatalogo, nombreCatalogo);
                     break;
                 case 0:
                     System.out.println("Gracias por utilizar la aplicación");

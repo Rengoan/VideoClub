@@ -63,19 +63,27 @@ public class AccesoDatos implements IAccesoDatos {
     public String buscar(String nombreArchivo, String buscar) throws LecturaDatosEx {
         var archivo = new File(nombreArchivo);
         var resultado = "";
+        var i = 1;
         try {
             //entrada es el descriptor de lectura
             var entrada = new BufferedReader(new FileReader(archivo));
             //nos devuelve una linea de nuestro archivo 
             var lectura = entrada.readLine();
-            var i = 0;
-            while (!lectura.equalsIgnoreCase(buscar)) {
-                i++;
+            while (lectura != null) {
+                if (lectura.equalsIgnoreCase(buscar)) {
+                    resultado = "\nLa pelicula: " + buscar
+                            + ", está en la posición " + i;
+                    break;
+                }
                 // Avanzamos en la lectura
                 lectura = entrada.readLine();
+                i++;
             }
-            resultado = "\nLa pelicula: " + buscar + ", está en la posición " + i;
-            entrada.close();
+            if (lectura != null) {
+                resultado = "\nLa pelicula: " + buscar + ", no está en el catalogo ";
+                entrada.close();
+            }
+
         } catch (FileNotFoundException e) {
             e.printStackTrace(System.out);
         } catch (IOException e) {
@@ -89,17 +97,25 @@ public class AccesoDatos implements IAccesoDatos {
 
         var archivo = new File(nombreArchivo);
         try {
-            PrintWriter salida = new PrintWriter(archivo);
+
+            var salida = new PrintWriter(new FileWriter(archivo));
             //Aqui ya esta creado el archivo
             salida.close(); //Cerrar archivo
-            System.out.println("Se ha creado el archivo");
-        } catch (FileNotFoundException e) {
+        } catch (Exception e) {
             e.printStackTrace(System.out);
+            throw new AccesoDatosEx("Error al crear el archivo");
         }
     }
 
     @Override
-    public void borrar(String nombreArchivo) throws AccesoDatosEx {
+    public void borrar(String nombreArchivo) {
+
+        File archivo = new File(nombreArchivo);
+        if (archivo.exists()) {
+            archivo.delete();
+
+        }
+        System.out.println("Se ha borrado el archivo");
 
     }
 

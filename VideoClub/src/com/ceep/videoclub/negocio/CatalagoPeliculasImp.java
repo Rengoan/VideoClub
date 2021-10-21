@@ -4,6 +4,8 @@ import com.ceep.videoclub.datos.*;
 import com.ceep.videoclub.domain.*;
 import com.ceep.videoclub.excepciones.*;
 import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.PrintWriter;
 import java.util.*;
 
 public class CatalagoPeliculasImp implements ICatalagoPeliculas {
@@ -49,18 +51,28 @@ public class CatalagoPeliculasImp implements ICatalagoPeliculas {
 
     @Override
     public void buscarPelicula(String nombreCatalogo, String buscar) {
-        var archivo = new File(nombreCatalogo);
+
         try {
             System.out.println(this.datos.buscar(nombreCatalogo, buscar));
         } catch (LecturaDatosEx ex) {
-            ex.printStackTrace();
-            System.out.println("Error al buscar el archivo");
+            ex.printStackTrace(System.out);
         }
     }
 
     @Override
     public void iniciarArchivo(String nombreCatalogo) {
 
-    }
+        try {
+            if (this.datos.existe(nombreCatalogo)) {
+                this.datos.borrar(nombreCatalogo);
+                this.datos.crear(nombreCatalogo);
 
+            } else {
+                this.datos.crear(nombreCatalogo);
+            }
+        } catch (AccesoDatosEx ex) {
+            ex.printStackTrace(System.out);
+            System.out.println("Error al inicializar el archivo");
+        }
+    }
 }
