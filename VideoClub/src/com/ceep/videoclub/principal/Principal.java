@@ -1,6 +1,5 @@
 package com.ceep.videoclub.principal;
 
-import com.ceep.videoclub.domain.*;
 import com.ceep.videoclub.negocio.*;
 import java.util.Scanner;
 
@@ -9,12 +8,13 @@ public class Principal {
     public static void main(String[] args) {
         var nombreCatalogo = "Videoclub.txt";
         ICatalagoPeliculas catalogo = new CatalagoPeliculasImp();
-        catalogo.agregarPelicula("Matrix", nombreCatalogo);
-        menu(nombreCatalogo,catalogo);
+//        catalogo.agregarPelicula("Matrix", nombreCatalogo);
+        menu(nombreCatalogo, catalogo);
 
     }
 
-    public static void menu(String nombreCatalogo, ICatalagoPeliculas catalogo ) {
+    public static void menu(String nombreCatalogo, ICatalagoPeliculas catalogo) {
+        var nombrePeli = "";
         int opcion;
         Scanner menu = new Scanner(System.in);
         while (true) {
@@ -31,18 +31,24 @@ public class Principal {
             switch (opcion) {
                 case 1:
                     System.out.println("=========================PELÍCULAS===================================");
-                        catalogo.iniciarArchivo(nombreCatalogo);
+                    catalogo.iniciarArchivo(nombreCatalogo);
+                    System.out.println("Catalogo iniciado...");
                     break;
                 case 2:
-                    catalogo.agregarPelicula("Señor de los anillos", nombreCatalogo);
-                    catalogo.agregarPelicula("Spiderman", nombreCatalogo);
-
+                    Scanner agregar = new Scanner(System.in);
+                    System.out.println("Introducuce el nombre de la pelicula a agregar");
+                    nombrePeli = agregar.nextLine();
+                    catalogo.agregarPelicula(nombrePeli, nombreCatalogo);
+                    System.out.println("Se ha agregado " + nombrePeli + " al catalogo " + nombreCatalogo);
                     break;
                 case 3:
                     catalogo.listarPeliculas(nombreCatalogo);
                     break;
                 case 4:
-                    catalogo.buscarPelicula(nombreCatalogo, nombreCatalogo);
+                    Scanner buscar = new Scanner(System.in);
+                    System.out.println("Introduce el nombre de la pelicula que quieres buscar: ");
+                    nombrePeli = buscar.nextLine();
+                    catalogo.buscarPelicula(nombreCatalogo, nombrePeli);
                     break;
                 case 0:
                     System.out.println("Gracias por utilizar la aplicación");

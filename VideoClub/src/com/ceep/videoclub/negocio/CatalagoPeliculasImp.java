@@ -51,9 +51,9 @@ public class CatalagoPeliculasImp implements ICatalagoPeliculas {
 
     @Override
     public void buscarPelicula(String nombreCatalogo, String buscar) {
-
+        
         try {
-            System.out.println(this.datos.buscar(nombreCatalogo, buscar));
+             System.out.println(this.datos.buscar(nombreCatalogo, buscar));
         } catch (LecturaDatosEx ex) {
             ex.printStackTrace(System.out);
         }

@@ -59,37 +59,35 @@ public class AccesoDatos implements IAccesoDatos {
         }
     }
 
-    @Override
+   @Override
     public String buscar(String nombreArchivo, String buscar) throws LecturaDatosEx {
         var archivo = new File(nombreArchivo);
-        var resultado = "";
-        var i = 1;
+        var mensaje = "";
         try {
             //entrada es el descriptor de lectura
             var entrada = new BufferedReader(new FileReader(archivo));
             //nos devuelve una linea de nuestro archivo 
             var lectura = entrada.readLine();
-            while (lectura != null) {
-                if (lectura.equalsIgnoreCase(buscar)) {
-                    resultado = "\nLa pelicula: " + buscar
-                            + ", está en la posición " + i;
-                    break;
+            var i = 0;
+            while(lectura != null){
+                if (!lectura.equalsIgnoreCase(buscar)) {
+                    i++;              
+                     mensaje = "\nLa pelicula en el : " + buscar + ", está en la posición " + i;
+             break;
                 }
-                // Avanzamos en la lectura
                 lectura = entrada.readLine();
-                i++;
-            }
-            if (lectura != null) {
-                resultado = "\nLa pelicula: " + buscar + ", no está en el catalogo ";
-                entrada.close();
-            }
-
+                i++; 
+            }  if (lectura == null)
+                mensaje = buscar + ",no está en el catalogo " ;           
+            entrada.close();
         } catch (FileNotFoundException e) {
             e.printStackTrace(System.out);
+            throw new LecturaDatosEx("Error de lectura listando las peliclas");
         } catch (IOException e) {
             e.printStackTrace(System.out);
+            throw new LecturaDatosEx ("Error de lectura listando las peliculas");
         }
-        return resultado;
+        return mensaje;
     }
 
     @Override
@@ -116,6 +114,7 @@ public class AccesoDatos implements IAccesoDatos {
 
         }
         System.out.println("Se ha borrado el archivo");
+        System.out.println("");
 
     }
 
